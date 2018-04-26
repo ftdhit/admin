@@ -46,35 +46,46 @@ class Index extends Base
         return view('login');
     }
 
-    public function test()
+    public function test(Request $request)
     {
 //        $data =  Admin::all();
+//        return json($data);
+        $draw = $request->param('draw',1);
+        //排序列
+        $order_column = $request->param('order.0.column',0);
+        //排序字段
+        $order = $request->param('columns.'.$order_column.'.data','');
+        //排序方式
+        $order_by = $request->param('order.0.dir','desc');
+        $start = $request->param('start',0);
+        $length = $request->param('length',10);
+        $search = $request->param('search.value','');
         $data = [
-            "draw"=>1,
-    "recordsTotal"=> 2,
-    "recordsFiltered"=> 2,
+            "draw"=>$request->param('draw',1),
+            "recordsTotal"=> 200,
+            "recordsFiltered"=> 200,
     "data"=> [
         [
-            "Angelica",
-            "Ramos",
-            "System Architect",
-            "London",
-            "9th Oct 09",
-            "$2,875",
-             "9th Oct 09",
-            "$2,875",
-            "$2,875",
+            "name1"=> 1,
+            "name2"=> "聂",
+            "name3"=> "System Architect",
+            "name4"=> "London",
+            "name5"=>"9th Oct 09",
+            "name6"=>"$2,875",
+            "name7"=>"9th Oct 09",
+            "name8"=> $start,
+            "name9"=>$order,
         ],
         [
-            "Ashton",
-            "Cox",
-            "Technical Author",
-            "San Francisco",
-            "12th Jan 09",
-            "$4,800",
-            "9th Oct 09",
-            "$2,875",
-            "$2,875",
+            "name1"=>2,
+            "name2"=>$search,
+            "name3"=>"Technical Author",
+            "name4"=>"San Francisco",
+            "name5"=>"12th Jan 09",
+            "name6"=>"$4,800",
+            "name7"=> "9th Oct 09",
+            "name8"=>$length,
+            "name9"=>$order_by,
         ]
     ]
         ];
