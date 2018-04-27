@@ -7,6 +7,7 @@
  */
 
 namespace app\admin\controller;
+use app\admin\model\AuthRule;
 use think\Controller;
 
 class Base extends  Controller
@@ -24,6 +25,6 @@ class Base extends  Controller
 
     public function left()
     {
-
+       $menu = AuthRule::all()->where('type','menu');
     }
 }
