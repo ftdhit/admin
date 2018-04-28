@@ -12,9 +12,10 @@ use think\Controller;
 
 class Base extends  Controller
 {
-    public function __construct()
+    public $menu;
+    public function _initialize()
     {
-
+        $this->menu = $this->left();
     }
 
 
@@ -23,8 +24,28 @@ class Base extends  Controller
 
     }
 
+    //查询 并渲染目录
     public function left()
     {
-       $menu = AuthRule::all()->where('type','menu');
+        $menu = AuthRule::where('type','menu')->select();
+        $tree = $this->generateTree(collection($menu)->toArray());
+       $this->assign('data',$tree);
+    }
+
+    private function generateTree($items){
+        $tree = array();
+        //先找到父节点
+        foreach($items as  $item){
+            if ($item['pid'] == 0){
+                $tree[$item['id']] = $item;
+            }
+        }
+        //再添加子节点
+        foreach ($items as $item){
+            if ($item['pid'] >0 && isset($tree[$item['pid']])){
+                $tree[$item['pid']]['son'][] = $item;
+            }
+        }
+        return $tree;
     }
 }

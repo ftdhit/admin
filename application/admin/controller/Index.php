@@ -19,8 +19,7 @@ class Index extends Base
      */
     public function index()
     {
-
-        return view('index');
+        return $this->fetch('index');
     }
 
 

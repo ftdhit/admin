@@ -80,6 +80,10 @@
 <script type="text/javascript" src="__PUBLIC__/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
 
+	//菜单高亮
+    $("#管理员管理").find('dt').first().addClass('selected');
+    $("#管理员管理").find('dd').first().css('display','block');
+	$("#li-108").addClass('current');
     $('.table-bg').dataTable({
         serverSide: true,
         "processing": true,
