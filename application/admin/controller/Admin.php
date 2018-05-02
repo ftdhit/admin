@@ -18,6 +18,7 @@ class Admin extends Base
      */
     public function lists()
     {
+        return json(\app\admin\model\Admin::getAdmins());die;
         return view("list");
     }
 
